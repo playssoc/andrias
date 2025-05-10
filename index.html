@@ -50,16 +50,28 @@
             margin: 0 auto 40px;
         }
 
-        .youtube-feed {
-            margin-top: 40px;
-            padding: 20px;
+        .music-section {
             background: #fff;
+            padding: 40px 20px;
             border-top: 2px solid #ccc;
         }
 
         h2 {
             font-size: 2em;
             margin-bottom: 20px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        audio {
+            display: block;
+            margin: 0 auto;
+            width: 300px;
+            margin-top: 20px;
         }
 
         footer {
@@ -76,15 +88,16 @@
             font-size: 1.2em;
             color: #fff;
             background: #d9534f;
-            text-decoration: none;
-            border-radius: 8px;
+            text-decoration: none; border-radius: 8px;
             transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .footer-buttons a:hover {
             background: #c9302c;
             transform: translateY(-2px);
-        } .footer-links {
+        }
+
+        .footer-links {
             margin-top: 20px;
             font-size: 0.9em;
             color: #aaa;
@@ -106,17 +119,17 @@
         This is the official hub for my latest projects, music releases, and exclusive merch.
         Whether you're a long-time listener or just discovering my work—thanks for stopping by!
     </p>
+</div>
 
-    <div class="youtube-feed">
-        <h2>Latest Videos from Porolise</h2>
-        <iframe 
-            width="100%" 
-            height="600" 
-            src="https://www.youtube.com/embed?listType=user_uploads&list=UCDIVV6iv0YtNheLo3_zWbHg" 
-            title="Porolise YouTube Feed" 
-            frameborder="0" 
-            allowfullscreen>       </iframe>
-    </div>
+<div class="music-section">
+    <h2>Listen to the Music</h2>
+    <select id="songSelector">
+        <option value="">-- Select a Song --</option>
+        <option value="music/song1.mp3">Midnight Echo</option>
+        <option value="music/song2.mp3">Neon Waves</option>
+        <option value="music/song3.mp3">Fading Light</option>
+    </select>
+    <audio id="audioPlayer" controls style="display: none;"></audio>
 </div>
 
 <footer>
@@ -128,6 +141,21 @@
         &copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias
     </div>
 </footer>
+
+<script>
+    const selector = document.getElementById('songSelector');
+    const player = document.getElementById('audioPlayer');
+
+    selector.addEventListener('change', function () {
+        if (this.value) {
+            player.src = this.value;
+            player.style.display = 'block';
+            player.play();
+        } else { player.pause();
+            player.style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 </html>
