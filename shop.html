@@ -179,6 +179,17 @@
 </div>
 
 <script>
+  let downloadLinks = {};
+
+  async function loadDownloadLinks() {
+    try { const res = await fetch('songs.json');
+      if (!res.ok) throw new Error('Missing songs.json');
+      downloadLinks = await res.json();
+    } catch (e) {
+      console.error("Failed to load song links:", e);
+    }
+  }
+
   function setLang(lang) {
     document.querySelectorAll('[data-en]').forEach(el => {
       el.innerText = el.dataset[lang];
@@ -194,24 +205,36 @@
     const songSelect = document.getElementById('songSelect');
     const itemName = document.getElementById('itemName');
     const amount = document.getElementById('amount');
+    const returnField = document.getElementById('returnURL');
     const priceDisplay = document.getElementById('priceDisplay');
 
     if (album !== 'none') {
-      songSelect.disabled = true;
-      songSelect.value = '';
+      songSelect.disabled = true; songSelect.value = '';
       itemName.value = album;
       amount.value = '5.00';
       priceDisplay.textContent = 'Price: $5.00';
+      returnField.value = downloadLinks[album] || "https://porolise.com/thankyou";
     } else {
       songSelect.disabled = false;
       const selectedSong = songSelect.value;
       itemName.value = selectedSong;
       amount.value = '1.50';
       priceDisplay.textContent = 'Price: $1.50';
+      returnField.value = downloadLinks[selectedSong] || "https://porolise.com/thankyou";
     }
-  } document.getElementById('songSelect').addEventListener('change', () => {
+  }
+
+  document.getElementById('songSelect').addEventListener('change', () => {
     const song = document.getElementById('songSelect').value;
-    document.getElementById('itemName').value = song;
+    const itemName = document.getElementById('itemName');
+    const returnField = document.getElementById('returnURL');
+    const amount = document.getElementById('amount');
+    const priceDisplay = document.getElementById('priceDisplay');
+
+    itemName.value = song;
+    amount.value = '1.50';
+    priceDisplay.textContent = 'Price: $1.50';
+    returnField.value = downloadLinks[song] || "https://porolise.com/thankyou";
   });
 
   function showPopup() {
@@ -234,7 +257,8 @@
       button.classList.add("active");
       button.innerText = "Continue to Payment";
     } else {
-      button.disabled = true; button.classList.remove("active");
+      button.disabled = true;
+      button.classList.remove("active");
       button.innerText = "Please confirm to continue";
     }
   }
@@ -243,10 +267,10 @@
     document.getElementById('paypalForm').submit();
   }
 
-  // Set saved language
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('DOMContentLoaded', async () => {
     const savedLang = localStorage.getItem('lang') || 'en';
     setLang(savedLang);
+    await loadDownloadLinks();
     handleAlbumChange();
   });
 </script>
