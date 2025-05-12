@@ -59,9 +59,11 @@
       padding: 0.5em 1em; font-weight: bold;
     }
     nav a:hover { background: #555; border-radius: 5px; }
+
     .container { text-align: center; padding: 60px 20px; }
     h1 { font-size: 3em; margin-bottom: 20px; }
     p { font-size: 1.2em; color: #555; max-width: 700px; margin: 0 auto 40px; }
+
     .music-section {
       background: #fff; padding: 40px 20px; border-top: 2px solid #ccc;
     }
@@ -70,6 +72,7 @@
     audio {
       display: block; margin: 0 auto; width: 300px; margin-top: 20px;
     }
+
     footer {
       background: #222; color: #fff; padding: 40px 20px; text-align: center;
     }
@@ -84,23 +87,17 @@
     }
     .footer-links { margin-top: 20px; font-size: 0.9em; color: #aaa; }
 
-    /* Shop Modal */
-    .shop-modal, .overlay {
-      display: none; position: fixed; z-index: 1000;
+    dialog::backdrop { background: rgba(0,0,0,0.5); }
+    dialog {
+      border: none;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
     }
-    .shop-modal {
-      top: 5%; left: 50%; transform: translateX(-50%);
-      background: #fff; padding: 30px;
-      width: 90%; max-width: 600px;
-      border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    }
-    .overlay {
-      top: 0; left: 0; height: 100%; width: 100%;
-      background: rgba(0,0,0,0.5);
-    }
-    .close-shop {
-      margin-top: 20px; background: #ccc; color: #000;
-    }
+    .popup { margin-top: 20px; background: #fee; padding: 10px; border-radius: 6px; }
+    .popup label { display: block; margin: 10px 0; }
   </style>
 </head>
 <body>
@@ -117,13 +114,15 @@
     </div>
   </div>
 </nav>
+
 <div class="container">
   <h1 data-en="Welcome to Andrias.FO" data-fo="Vælkomin til Andrias.FO">Welcome to Andrias.FO</h1>
   <p data-en="This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!"
      data-fo="Hetta er offisiela síða mín fyri nýggjastu verkætlanirnar, tónleikaútgávur og serligar vørur. Takk fyri at tú vitjaði—vælkomin, um tú ert trúfastur lurtari ella nýggjur áhoyrari!">
-    Welcome message here
+    This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!
   </p>
 </div>
+
 <div class="music-section">
   <h2 data-en="Listen to the Music" data-fo="Lurta eftir tónleikinum">Listen to the Music</h2>
   <select id="songSelector">
@@ -138,34 +137,68 @@
   </select>
   <audio id="audioPlayer" controls style="display: none;"></audio>
 </div>
+
 <footer>
   <div class="footer-buttons">
-    <button onclick="openShop()" data-en="Visit the Shop" data-fo="Vitja Handilin">Visit the Shop</button>
+    <button onclick="document.getElementById('shopModal').showModal()" data-en="Visit the Shop" data-fo="Vitja Handilin">Visit the Shop</button>
   </div>
   <div class="footer-links" data-en="&copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias"
        data-fo="&copy; 2025 Andrias.FO. Øll rættindi varðveitt. | Sniðgivið av Andrias">
     &copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias
   </div>
 </footer>
-<div class="overlay" id="shopOverlay" onclick="closeShop()"></div>
-<div class="shop-modal" id="shopModal">
-  <!-- Shop form will be inserted here -->
-  <div id="shopFormContainer"></div>
-  <button class="close-shop" onclick="closeShop()">Close Shop</button>
-</div>
+
+<dialog id="shopModal">
+  <h2>Buy WAV Downloads</h2>
+  <!-- SHOP FORM GOES HERE -->
+  <form id="paypalForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+    <label>Select Album ($5):</label>
+    <select id="albumSelect" onchange="handleAlbumChange()">
+      <option value="none">-- None --</option>
+      <option value="Producer Playground">Producer Playground</option>
+    </select>
+
+    <label>Or select a song ($1.50):</label>
+    <select id="songSelect" name="item_name">
+      <option value="">-- Select a Song --</option>
+      <option value="Candle life">Candle life</option>
+      <option value="Violins">Violins</option>
+      <option value="Moving along">Moving along</option>
+      <option value="Stride">Stride</option>
+      <option value="London Criminal">London Criminal</option>
+      <option value="Elysium">Elysium</option>
+      <option value="Reference">Reference</option>
+    </select>
+
+    <p id="priceDisplay">Price: $1.50</p>
+
+    <input type="hidden" name="cmd" value="_xclick" />
+    <input type="hidden" name="business" value="andriaserikkiher@gmail.com" />
+    <input type="hidden" id="itemName" name="item_name" />
+    <input type="hidden" id="amount" name="amount" />
+    <input type="hidden" id="returnURL" name="return" value="https://porolise.com/thankyou" />
+    <input type="hidden" name="rm" value="2" />
+
+    <input type="button" value="Buy Now" onclick="showPopup()" />
+  </form>
+
+  <div class="popup" id="popup" style="display:none;">
+    <strong>Important!</strong>
+    <p>Make sure to click 'Return to Merchant' after payment.</p>
+    <label><input type="checkbox" id="confirmCheckbox" onchange="toggleContinue()" />
+      I understand I must click return to access my download.</label>
+    <br>
+    <button onclick="closePopup()">Cancel</button>
+    <button id="continueButton" onclick="submitForm()" disabled>Confirm and Continue</button>
+  </div>
+  <button onclick="document.getElementById('shopModal').close()">Close Shop</button>
+</dialog>
+
 <script>
-  const selector = document.getElementById('songSelector');
-  const player = document.getElementById('audioPlayer');
-  selector.addEventListener('change', function () {
-    if (this.value) {
-      player.src = this.value;
-      player.style.display = 'block';
-      player.play();
-    } else {
-      player.pause();
-      player.style.display = 'none';
-    }
-  });
+  function toggleLangMenu() {
+    const menu = document.getElementById("langOptions");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
 
   function setLanguage(lang) {
     document.querySelectorAll('[data-en]').forEach(el => {
@@ -179,25 +212,91 @@
     localStorage.setItem('language', lang);
   }
 
-  function toggleLangMenu() {
-    const menu = document.getElementById("langOptions");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  function handleAlbumChange() {
+    const album = document.getElementById('albumSelect').value;
+    const songSelect = document.getElementById('songSelect');
+    const itemName = document.getElementById('itemName');
+    const amount = document.getElementById('amount');
+    const returnField = document.getElementById('returnURL');
+    const priceDisplay = document.getElementById('priceDisplay');
+
+    if (album !== 'none') {
+      songSelect.disabled = true;
+      songSelect.value = '';
+      itemName.value = album;
+      amount.value = '5.00';
+      priceDisplay.textContent = 'Price: $5.00';
+    } else {
+      songSelect.disabled = false;
+      const selectedSong = songSelect.value;
+      itemName.value = selectedSong;
+      amount.value = '1.50';
+      priceDisplay.textContent = 'Price: $1.50';
+    }
   }
 
-  function openShop() {
-    document.getElementById('shopModal').style.display = 'block';
-    document.getElementById('shopOverlay').style.display = 'block';
+  function showPopup() {
+    const item = document.getElementById('itemName').value;
+    if (!item) return alert("Please select an album or song.");
+    document.getElementById('popup').style.display = "block";
   }
 
-  function closeShop() {
-    document.getElementById('shopModal').style.display = 'none';
-    document.getElementById('shopOverlay').style.display = 'none';
+  function closePopup() {
+    document.getElementById('popup').style.display = "none";
+  }
+
+  function toggleContinue() {
+    const checkbox = document.getElementById("confirmCheckbox");
+    const button = document.getElementById("continueButton");
+    if (checkbox.checked) {
+      button.disabled = false;
+      button.innerText = "Continue to Payment";
+    } else {
+      button.disabled = true;
+      button.innerText = "Confirm and Continue";
+    }
+  }
+
+  function submitForm() {
+    document.getElementById('paypalForm').submit();
   }
 
   window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('language') || (navigator.language.startsWith('fo') ? 'fo' : 'en');
     setLanguage(savedLang);
+
+    const selector = document.getElementById('songSelector');
+    const player = document.getElementById('audioPlayer');
+    selector.addEventListener('change', function () {
+      if (this.value) {
+        player.src = this.value;
+        player.style.display = 'block';
+        player.play();
+      } else {
+        player.pause();
+        player.style.display = 'none';
+      }
+    });
   });
+</script>
+
+<script>
+  // Polyfill for <dialog> on older or mobile browsers
+  (function () {
+    if (typeof HTMLDialogElement === "function") return;
+    document.querySelectorAll("dialog").forEach(dialog => {
+      if (!dialog.showModal) {
+        dialog.showModal = function () {
+          dialog.setAttribute("open", "open");
+          dialog.style.display = "block";
+        };
+        dialog.close = function () {
+          dialog.removeAttribute("open");
+          dialog.style.display = "none";
+        };
+      }
+    });
+  })();
 </script>
 </body>
 </html>
