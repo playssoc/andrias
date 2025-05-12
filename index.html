@@ -1,127 +1,129 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Andrias.FO</title>
-  <link rel="stylesheet" href="styles.css"/>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
-
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; color: #333; }
     nav {
       background: #333;
-      padding: 1em 0;
-      text-align: center;
+      padding: 1em 2em;
       display: flex;
       justify-content: space-between;
-      padding: 1em 2em;
+      align-items: center;
     }
-
-    nav a {
+    .lang-switch {
+      position: relative;
+    }
+    .lang-toggle {
+      background: none;
+      border: none;
       color: #fff;
-      text-decoration: none;
-      padding: 0.5em 1em;
       font-weight: bold;
-    }
-
-    nav a:hover {
-      background: #555;
-      border-radius: 5px;
-    }
-
-    .container {
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 1.2em;
-      color: #555;
-      max-width: 700px;
-      margin: 0 auto 40px;
-    }
-
-    .music-section {
-   background: #fff;
-      padding: 40px 20px;
-      border-top: 2px solid #ccc;
-    }
-
-    h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    select {
-      padding: 10px;
       font-size: 1em;
-      margin-bottom: 20px;
+      cursor: pointer;
     }
-
-    audio {
+    .lang-toggle img {
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+    .lang-options {
+      display: none;
+      position: absolute;
+      top: 120%;
+      left: 0;
+      background: #444;
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .lang-options button {
       display: block;
-      margin: 0 auto;
-      width: 300px;
-      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #444;
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
     }
-
+    .lang-options button:hover {
+      background: #555;
+    }
+    nav a {
+      color: #fff; text-decoration: none;
+      padding: 0.5em 1em; font-weight: bold;
+    }
+    nav a:hover { background: #555; border-radius: 5px; }
+    .container { text-align: center; padding: 60px 20px; }
+    h1 { font-size: 3em; margin-bottom: 20px; }
+    p { font-size: 1.2em; color: #555; max-width: 700px; margin: 0 auto 40px; }
+    .music-section {
+      background: #fff; padding: 40px 20px; border-top: 2px solid #ccc;
+    }
+    h2 { font-size: 2em; margin-bottom: 20px; }
+    select { padding: 10px; font-size: 1em; margin-bottom: 20px; }
+    audio {
+      display: block; margin: 0 auto; width: 300px; margin-top: 20px;
+    }
     footer {
-      background: #222;
-      color: #fff;
-      padding: 40px 20px;
-      text-align: center;
+      background: #222; color: #fff; padding: 40px 20px; text-align: center;
     }
-
-    .footer-buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 24px;
-      font-size: 1.2em;
-      color: #fff;
-      background: #d9534f;
-      text-decoration: none;
-      border-radius: 8px;
+    .footer-buttons a, .footer-buttons button {
+      display: inline-block; margin: 10px; padding: 12px 24px;
+      font-size: 1.2em; color: #fff; background: #d9534f;
+      text-decoration: none; border-radius: 8px; border: none;
       transition: background 0.3s ease, transform 0.2s ease;
     }
-
-    .footer-buttons a:hover {
-      background: #c9302c;
-      transform: translateY(-2px);
+    .footer-buttons a:hover, .footer-buttons button:hover {
+      background: #c9302c; transform: translateY(-2px);
     }
+    .footer-links { margin-top: 20px; font-size: 0.9em; color: #aaa; }
 
-    .footer-links {
-      margin-top: 20px;
-      font-size: 0.9em;
-      color: #aaa;
+    /* Shop Modal */
+    .shop-modal, .overlay {
+      display: none; position: fixed; z-index: 1000;
+    }
+    .shop-modal {
+      top: 5%; left: 50%; transform: translateX(-50%);
+      background: #fff; padding: 30px;
+      width: 90%; max-width: 600px;
+      border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .overlay {
+      top: 0; left: 0; height: 100%; width: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .close-shop {
+      margin-top: 20px; background: #ccc; color: #000;
     }
   </style>
 </head>
 <body>
-
 <nav>
-  <a href="#" onclick="setLanguage('en')">English</a>
-  <a href="#" onclick="setLanguage('fo')">Føroyskt</a>
+  <a href="https://www.youtube.com/@AndriasAndersen" target="_blank">YouTube</a>
+  <div class="lang-switch">
+    <button class="lang-toggle" aria-label="Select language, English is selected" onclick="toggleLangMenu()">
+      <img id="langFlag" src="https://flagcdn.com/gb.svg" alt="Language Flag" />
+      <span id="langText">English</span>
+    </button>
+    <div class="lang-options" id="langOptions">
+      <button onclick="setLanguage('en')">English</button>
+      <button onclick="setLanguage('fo')">Føroyskt</button>
+    </div>
+  </div>
 </nav>
-
 <div class="container">
   <h1 data-en="Welcome to Andrias.FO" data-fo="Vælkomin til Andrias.FO">Welcome to Andrias.FO</h1>
-  <p data-en="This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!" 
+  <p data-en="This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!"
      data-fo="Hetta er offisiela síða mín fyri nýggjastu verkætlanirnar, tónleikaútgávur og serligar vørur. Takk fyri at tú vitjaði—vælkomin, um tú ert trúfastur lurtari ella nýggjur áhoyrari!">
-    This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!
+    Welcome message here
   </p>
 </div>
-
 <div class="music-section">
   <h2 data-en="Listen to the Music" data-fo="Lurta eftir tónleikinum">Listen to the Music</h2>
   <select id="songSelector">
@@ -136,22 +138,24 @@
   </select>
   <audio id="audioPlayer" controls style="display: none;"></audio>
 </div>
-
 <footer>
   <div class="footer-buttons">
-    <a href="https://andrias.fo/shop" data-en="Visit the Shop" data-fo="Vitja Handilin">Visit the Shop</a>
-    <a href="https://www.youtube.com/@AndriasAndersen" target="_blank" data-en="YouTube Channel" data-fo="YouTube Rásin">YouTube Channel</a>
+    <button onclick="openShop()" data-en="Visit the Shop" data-fo="Vitja Handilin">Visit the Shop</button>
   </div>
   <div class="footer-links" data-en="&copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias"
        data-fo="&copy; 2025 Andrias.FO. Øll rættindi varðveitt. | Sniðgivið av Andrias">
     &copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias
   </div>
 </footer>
-
+<div class="overlay" id="shopOverlay" onclick="closeShop()"></div>
+<div class="shop-modal" id="shopModal">
+  <!-- Shop form will be inserted here -->
+  <div id="shopFormContainer"></div>
+  <button class="close-shop" onclick="closeShop()">Close Shop</button>
+</div>
 <script>
   const selector = document.getElementById('songSelector');
   const player = document.getElementById('audioPlayer');
-
   selector.addEventListener('change', function () {
     if (this.value) {
       player.src = this.value;
@@ -167,15 +171,33 @@
     document.querySelectorAll('[data-en]').forEach(el => {
       el.innerHTML = el.dataset[lang];
     });
+    const flag = document.getElementById("langFlag");
+    const label = document.getElementById("langText");
+    flag.src = lang === "fo" ? "https://flagcdn.com/fo.svg" : "https://flagcdn.com/gb.svg";
+    label.textContent = lang === "fo" ? "Føroyskt" : "English";
+    document.querySelector(".lang-toggle").setAttribute("aria-label", `Select language, ${label.textContent} is selected`);
     localStorage.setItem('language', lang);
   }
 
-  // Load saved language or detect from browser
+  function toggleLangMenu() {
+    const menu = document.getElementById("langOptions");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
+
+  function openShop() {
+    document.getElementById('shopModal').style.display = 'block';
+    document.getElementById('shopOverlay').style.display = 'block';
+  }
+
+  function closeShop() {
+    document.getElementById('shopModal').style.display = 'none';
+    document.getElementById('shopOverlay').style.display = 'none';
+  }
+
   window.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('language') || (navigator.language.startsWith('fo') ? 'fo' : 'en');
     setLanguage(savedLang);
   });
 </script>
-
 </body>
 </html>
