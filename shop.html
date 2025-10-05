@@ -13,87 +13,41 @@
       justify-content: space-between;
       align-items: center;
     }
-    .lang-switch {
-      position: relative;
-    }
+    .lang-switch { position: relative; }
     .lang-toggle {
-      background: none;
-      border: none;
-      color: #fff;
-      font-weight: bold;
-      font-size: 1em;
-      cursor: pointer;
+      background: none; border: none; color: #fff; font-weight: bold; font-size: 1em; cursor: pointer;
     }
-    .lang-toggle img {
-      vertical-align: middle;
-      width: 20px;
-      height: 20px;
-      margin-right: 5px;
-    }
+    .lang-toggle img { vertical-align: middle; width: 20px; height: 20px; margin-right: 5px; }
     .lang-options {
-      display: none;
-      position: absolute;
-      top: 120%;
-      left: 0;
-      background: #444;
-      border-radius: 5px;
-      overflow: hidden;
-      z-index: 999;
+      display: none; position: absolute; top: 120%; left: 0; background: #444; border-radius: 5px; overflow: hidden; z-index: 999;
     }
     .lang-options button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background: #444;
-      color: #fff;
-      text-align: left;
-      cursor: pointer;
+      display: block; width: 100%; padding: 10px; border: none; background: #444; color: #fff; text-align: left; cursor: pointer;
     }
-    .lang-options button:hover {
-      background: #555;
-    }
-    nav a {
-      color: #fff; text-decoration: none;
-      padding: 0.5em 1em; font-weight: bold;
-    }
+    .lang-options button:hover { background: #555; }
+    nav a { color: #fff; text-decoration: none; padding: 0.5em 1em; font-weight: bold; }
     nav a:hover { background: #555; border-radius: 5px; }
 
     .container { text-align: center; padding: 60px 20px; }
     h1 { font-size: 3em; margin-bottom: 20px; }
     p { font-size: 1.2em; color: #555; max-width: 700px; margin: 0 auto 40px; }
 
-    .music-section {
-      background: #fff; padding: 40px 20px; border-top: 2px solid #ccc;
-    }
+    .music-section { background: #fff; padding: 40px 20px; border-top: 2px solid #ccc; }
     h2 { font-size: 2em; margin-bottom: 20px; }
     select { padding: 10px; font-size: 1em; margin-bottom: 20px; }
-    audio {
-      display: block; margin: 0 auto; width: 300px; margin-top: 20px;
-    }
+    audio { display: block; margin: 0 auto; width: 300px; margin-top: 20px; }
 
-    footer {
-      background: #222; color: #fff; padding: 40px 20px; text-align: center;
-    }
+    footer { background: #222; color: #fff; padding: 40px 20px; text-align: center; }
     .footer-buttons a, .footer-buttons button {
-      display: inline-block; margin: 10px; padding: 12px 24px;
-      font-size: 1.2em; color: #fff; background: #d9534f;
-      text-decoration: none; border-radius: 8px; border: none;
-      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-block; margin: 10px; padding: 12px 24px; font-size: 1.2em; color: #fff; background: #d9534f;
+      text-decoration: none; border-radius: 8px; border: none; transition: background 0.3s ease, transform 0.2s ease;
     }
-    .footer-buttons a:hover, .footer-buttons button:hover {
-      background: #c9302c; transform: translateY(-2px);
-    }
+    .footer-buttons a:hover, .footer-buttons button:hover { background: #c9302c; transform: translateY(-2px); }
     .footer-links { margin-top: 20px; font-size: 0.9em; color: #aaa; }
 
     dialog::backdrop { background: rgba(0,0,0,0.5); }
     dialog {
-      border: none;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 600px;
-      padding: 30px 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      border: none; border-radius: 10px; width: 90%; max-width: 600px; padding: 30px 20px; box-shadow: 0 0 30px rgba(0,0,0,0.3);
     }
     .popup { margin-top: 20px; background: #fee; padding: 10px; border-radius: 6px; }
     .popup label { display: block; margin: 10px 0; }
@@ -116,16 +70,18 @@
 
 <div class="container">
   <h1 data-en="Welcome to Andrias.FO" data-fo="Vælkomin til Andrias.FO">Welcome to Andrias.FO</h1>
-  <p data-en="This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!"
-     data-fo="Hetta er offisiela síða mín fyri nýggjastu verkætlanirnar, tónleikaútgávur og serligar vørur. Takk fyri at tú vitjaði—vælkomin, um tú ert trúfastur lurtari ella nýggjur áhoyrari!">
-    This is the official hub for my latest projects, music releases, and exclusive merch. Whether you're a long-time listener or just discovering my work—thanks for stopping by!
+  <p
+    data-en="This is the official hub for my latest projects, music releases, and exclusive merch. Whether you are a long time listener or just discovering my work, thanks for stopping by!"
+    data-fo="Hetta er offisiela síða mín fyri nýggjastu verkætlanirnar, tónleikaútgávur og serligar vørur. Takk fyri at tú vitjaði, vælkomin um tú ert trúfastur lurtari ella nýggjur áhoyrari!">
+    This is the official hub for my latest projects, music releases, and exclusive merch. Whether you are a long time listener or just discovering my work, thanks for stopping by!
   </p>
 </div>
 
 <div class="music-section">
   <h2 data-en="Listen to the Music" data-fo="Lurta eftir tónleikinum">Listen to the Music</h2>
-  <select id="songSelector">
-    <option value="">-- Select a Song --</option>
+  <label for="songSelector" class="sr-only" aria-hidden="true"></label>
+  <select id="songSelector" aria-label="Select a song to preview">
+    <option value="">Select a Song</option>
     <option value="music/01-candle life.mp3">Candle life</option>
     <option value="music/02-Violins.mp3">Violins</option>
     <option value="music/03-Moving-along.mp3">Moving along</option>
@@ -139,63 +95,83 @@
 
 <footer>
   <div class="footer-buttons">
-    <button onclick="document.getElementById('shopModal').showModal()" data-en="Visit the Shop" data-fo="Vitja Handilin">Visit the Shop</button>
+    <button onclick="document.getElementById('shopModal').showModal()" data-en="Visit the Shop" data-fo="Vitja Handilin">
+      Visit the Shop
+    </button>
   </div>
-  <div class="footer-links" data-en="&copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias"
+  <div class="footer-links"
+       data-en="&copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias"
        data-fo="&copy; 2025 Andrias.FO. Øll rættindi varðveitt. | Sniðgivið av Andrias">
     &copy; 2025 Andrias.FO. All rights reserved. | Designed by Andrias
   </div>
 </footer>
 
-<dialog id="shopModal">
-  <h2 data-en="Buy WAV Downloads" data-fo="Keyp WAV Niðurtøkur">Buy WAV Downloads</h2>
-  <!-- SHOP FORM GOES HERE -->
+<dialog id="shopModal" aria-label="Shop dialog">
+  <h2>Buy WAV Downloads</h2>
+
   <form id="paypalForm" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-    <label data-en="Select Album ($5):" data-fo="Vel Album ($5):">Select Album ($5):</label>
-    <select id="albumSelect" onchange="handleAlbumChange()">
-      <option value="none" data-en="-- None --" data-fo="-- Einki --">-- None --</option>
+    <label for="albumSelect">Select Album ($5):</label>
+    <select id="albumSelect" onchange="handleAlbumChange()" aria-label="Select album">
+      <option value="none">None</option>
       <option value="Producer Playground">Producer Playground</option>
     </select>
 
-    <label data-en="Or select a song ($1.50):" data-fo="Ella vel eitt lag ($1.50):">Or select a song ($1.50):</label>
-    <select id="songSelect" name="item_name">
-      <option value="" data-en="-- Select a Song --" data-fo="-- Vel eitt lag --">-- Select a Song --</option>
+    <label for="songSelect">Or select a song ($1.50):</label>
+    <select id="songSelect" aria-label="Select song">
+      <option value="">Select a Song</option>
       <option value="Candle life">Candle life</option>
       <option value="Violins">Violins</option>
-      <option value="Moving along">Moving along</option>
-      <option value="Stride">Stride</option>
+      <option value="Moving along">Moving along</option> <option value="Stride">Stride</option>
       <option value="London Criminal">London Criminal</option>
       <option value="Elysium">Elysium</option>
       <option value="Reference">Reference</option>
     </select>
 
-    <p id="priceDisplay" data-en="Price: $1.50" data-fo="Prísur: $1.50">Price: $1.50</p>
+    <p id="priceDisplay">Price: $1.50</p>
 
+    <!-- Classic button fields -->
     <input type="hidden" name="cmd" value="_xclick" />
     <input type="hidden" name="business" value="andriaserikkiher@gmail.com" />
+
+    <!-- These two are set by JS based on your selection -->
     <input type="hidden" id="itemName" name="item_name" />
     <input type="hidden" id="amount" name="amount" />
-    <input type="hidden" id="returnURL" name="return" value="https://porolise.com/thankyou" />
+
+    <!-- Return links are set dynamically right before submit -->
+    <input type="hidden" id="returnURL" name="return" value="" />
+    <input type="hidden" id="cancelURL" name="cancel_return" value="https://andrias.fo" />
     <input type="hidden" name="rm" value="2" />
 
-    <input type="button" value="Buy Now" data-en="Buy Now" data-fo="Keyp Nú" onclick="showPopup()" />
+    <input type="button" value="Buy Now" onclick="showPopup()" />
   </form>
 
   <div class="popup" id="popup" style="display:none;">
-    <strong data-en="Important!" data-fo="Týdningarmikið!">Important!</strong>
-    <p data-en="Make sure to click 'Return to Merchant' after payment." 
-       data-fo="Minst til at trýsta á 'Return to Merchant' eftir gjaldingina.">Make sure to click 'Return to Merchant' after payment.</p>
-    <label><input type="checkbox" id="confirmCheckbox" onchange="toggleContinue()" />
-      <span data-en="I understand I must click return to access my download." 
-            data-fo="Eg skilji, at eg má trýsta á 'return' fyri at fáa atgongd til mína niðurtøku.">I understand I must click return to access my download.</span></label>
-    <br>
-    <button onclick="closePopup()" data-en="Cancel" data-fo="Angra">Cancel</button>
-    <button id="continueButton" onclick="submitForm()" disabled data-en="Confirm and Continue" data-fo="Vátta og Halt Fram">Confirm and Continue</button>
+    <strong>Important</strong>
+    <p>After payment select Return to Merchant to get your download.</p>
+    <label>
+      <input type="checkbox" id="confirmCheckbox" onchange="toggleContinue()" />
+      I understand I must select Return to Merchant to access my download.
+    </label>
+    <br />
+    <button onclick="closePopup()">Cancel</button>
+    <button id="continueButton" onclick="submitForm()" disabled>Confirm and Continue</button>
   </div>
-  <button onclick="document.getElementById('shopModal').close()" data-en="Close Shop" data-fo="Lat Handilin">Close Shop</button>
+
+  <button onclick="document.getElementById('shopModal').close()">Close Shop</button>
 </dialog>
 
 <script>
+  // Map item names to Google Drive links for returns after payment
+  const downloadLinks = {
+    "Candle life": "https://drive.google.com/file/d/1HDZhbmKP9JV4eAKRmKJ_tub40rKNLqr4/view?usp=drivesdk",
+    "Violins": "https://drive.google.com/file/d/1IkFfX_G591AI1P5iAGReazrMxW0KdC36/view?usp=drivesdk",
+    "Moving along": "https://drive.google.com/file/d/10Uqv6hDc_ggYTdFBUWvOicucC9sgUV3D/view?usp=drivesdk", "Stride": "https://drive.google.com/file/d/1QIQVR0EP4jMGzeuFeFb-QQjIWEGrlSWl/view?usp=drivesdk",
+    "London Criminal": "https://drive.google.com/file/d/1aDAOuJq7KvaD3HlHj1hqJXLHFWGp0UIe/view?usp=drivesdk",
+    "Elysium": "https://drive.google.com/file/d/1sE-kQSEX6jttRSMr94oRJc7imx6iqT1U/view?usp=drivesdk",
+    "Reference": "https://drive.google.com/file/d/19ea8DndTF1CDOH7zOJs6xZ_3azDwl9Cx/view?usp=drivesdk",
+    "Producer Playground": "https://drive.google.com/drive/folders/1FgpvVhRHezJRdF9n3tpY077BknyVyNLx"
+  };
+
   function toggleLangMenu() {
     const menu = document.getElementById("langOptions");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -205,28 +181,12 @@
     document.querySelectorAll('[data-en]').forEach(el => {
       el.innerHTML = el.dataset[lang];
     });
-    
-    // Update button values for inputs that need value attribute instead of innerHTML
-    document.querySelectorAll('input[type="button"][data-en], button[data-en]').forEach(el => {
-      if (el.tagName === 'INPUT') {
-        el.value = el.dataset[lang];
-      }
-    });
-    
-    // Update placeholders and select options
-    document.querySelectorAll('select option[data-en]').forEach(el => {
-      el.textContent = el.dataset[lang];
-    });
-
     const flag = document.getElementById("langFlag");
     const label = document.getElementById("langText");
     flag.src = lang === "fo" ? "https://flagcdn.com/fo.svg" : "https://flagcdn.com/gb.svg";
     label.textContent = lang === "fo" ? "Føroyskt" : "English";
     document.querySelector(".lang-toggle").setAttribute("aria-label", `Select language, ${label.textContent} is selected`);
     localStorage.setItem('language', lang);
-    
-    // Update price display with correct currency format
-    updatePriceDisplay();
   }
 
   function handleAlbumChange() {
@@ -237,40 +197,41 @@
     const priceDisplay = document.getElementById('priceDisplay');
 
     if (album !== 'none') {
-      songSelect.disabled = true;
       songSelect.value = '';
+      songSelect.disabled = true;
       itemName.value = album;
       amount.value = '5.00';
-      updatePriceDisplay('5.00');
+      priceDisplay.textContent = 'Price: $5.00';
     } else {
       songSelect.disabled = false;
-      const selectedSong = songSelect.value;
-      itemName.value = selectedSong;
-      amount.value = '1.50';
-      updatePriceDisplay('1.50');
+      handleSongChange();
     }
   }
-  
-  function updatePriceDisplay(price = '1.50') {
+
+  function handleSongChange() {
+    const albumSelect = document.getElementById('albumSelect');
+    const songSelect = document.getElementById('songSelect');
+    const itemName = document.getElementById('itemName');
+    const amount = document.getElementById('amount');
     const priceDisplay = document.getElementById('priceDisplay');
-    const currentLang = localStorage.getItem('language') || 'en';
-    
-    if (currentLang === 'fo') {
-      priceDisplay.textContent = `Prísur: $${price}`;
+
+    if (songSelect.value) {
+      albumSelect.value = 'none';
+      itemName.value = songSelect.value;
+      amount.value = '1.50';
+      priceDisplay.textContent = 'Price: $1.50';
     } else {
-      priceDisplay.textContent = `Price: $${price}`;
+      itemName.value = '';
+      amount.value = '';
+      priceDisplay.textContent = 'Price: $1.50';
     }
   }
 
   function showPopup() {
     const item = document.getElementById('itemName').value;
     if (!item) {
-      const currentLang = localStorage.getItem('language') || 'en';
-      if (currentLang === 'fo') {
-        return alert("Vinarliga vel eitt album ella lag.");
-      } else {
-        return alert("Please select an album or song.");
-      }
+      alert("Please select an album or song.");
+      return;
     }
     document.getElementById('popup').style.display = "block";
   }
@@ -282,31 +243,32 @@
   function toggleContinue() {
     const checkbox = document.getElementById("confirmCheckbox");
     const button = document.getElementById("continueButton");
-    const currentLang = localStorage.getItem('language') || 'en';
-    
     if (checkbox.checked) {
       button.disabled = false;
-      if (currentLang === 'fo') {
-        button.textContent = "Halt Fram til Gjaldingar";
-      } else {
-        button.textContent = "Continue to Payment";
-      }
+      button.innerText = "Continue to Payment";
     } else {
       button.disabled = true;
-      if (currentLang === 'fo') {
-        button.textContent = "Vátta og Halt Fram";
-      } else {
-        button.textContent = "Confirm and Continue";
-      }
+      button.innerText = "Confirm and Continue";
     }
   }
 
+  // Set the PayPal return URL just in time based on selection
+  function applyReturnURL() {
+    const item = document.getElementById('itemName').value;
+    const returnInput = document.getElementById('returnURL');
+
+    // Fallback to home if not found
+    const url = downloadLinks[item] || "https://andrias.fo";
+    returnInput.value = url;
+  }
+
   function submitForm() {
+    applyReturnURL();
     document.getElementById('paypalForm').submit();
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('language') || (navigator.language.startsWith('fo') ? 'fo' : 'en');
+    const savedLang = localStorage.getItem('language') || (navigator.language && navigator.language.startsWith('fo') ? 'fo' : 'en');
     setLanguage(savedLang);
 
     const selector = document.getElementById('songSelector');
@@ -321,17 +283,14 @@
         player.style.display = 'none';
       }
     });
-    
-    // Update dropdown text for songSelector based on language
-    const currentLang = localStorage.getItem('language') || 'en';
-    if (currentLang === 'fo') {
-      selector.options[0].text = "-- Vel eitt lag --";
-    }
+
+    // wire song change inside the shop
+    document.getElementById('songSelect').addEventListener('change', handleSongChange);
   });
 </script>
 
 <script>
-  // Polyfill for <dialog> on older or mobile browsers
+  // Polyfill for dialog on older or mobile browsers
   (function () {
     if (typeof HTMLDialogElement === "function") return;
     document.querySelectorAll("dialog").forEach(dialog => {
@@ -348,5 +307,4 @@
     });
   })();
 </script>
-</body>
-</html>
+</body> </html>
